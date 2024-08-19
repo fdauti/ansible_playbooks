@@ -1,0 +1,167 @@
+Tue Jun 22 23:10:38 EDT 2021
+
+hostname:co-nfs.fdauti.ops
+
+SELinux status:Enforcing
+
+release:4.18.0-305.3.1.el8.x86_64
+
+UUID:acf5ce23-01 acf5ce23-02 340c51dc-89fd-42e3-9a74-da365fa7f126 913282fd-33f0-4e21-83cc-ff7e97319e38
+
+firewalld:active
+firewalld:enabled
+named:active
+named:enabled
+
+internal (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: ens224
+  sources: 
+  services: cockpit dhcpv6-client dns mdns nfs nfs3 rpc-bind samba-client ssh
+  ports: 20048/udp 20048/tcp 33405/udp 33405/tcp 44929/udp 44907/tcp
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: ens192
+  sources: 
+  services: cockpit dhcpv6-client ssh
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+
+
+
+Addresses
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: ens192: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:50:56:00:01:ff brd ff:ff:ff:ff:ff:ff
+    inet 172.20.7.3/16 brd 172.20.255.255 scope global dynamic noprefixroute ens192
+       valid_lft 76600sec preferred_lft 76600sec
+    inet6 fe80::250:56ff:fe00:1ff/64 scope link 
+       valid_lft forever preferred_lft forever
+3: ens224: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:0c:29:c2:28:8e brd ff:ff:ff:ff:ff:ff
+    inet 192.168.7.3/24 brd 192.168.7.255 scope global noprefixroute ens224
+       valid_lft forever preferred_lft forever
+    inet6 fe80::20c:29ff:fec2:288e/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Named Config
+//
+// named.conf
+//
+// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
+// server as a caching only nameserver (as a localhost DNS resolver only).
+//
+// See /usr/share/doc/bind*/sample/ for example named configuration files.
+//
+
+options {
+	listen-on port 53 { 127.0.0.1; 192.168.7.3; 172.20.7.3; };
+	directory 	"/var/named";
+	dump-file 	"/var/named/data/cache_dump.db";
+	statistics-file "/var/named/data/named_stats.txt";
+	memstatistics-file "/var/named/data/named_mem_stats.txt";
+	secroots-file	"/var/named/data/named.secroots";
+	recursing-file	"/var/named/data/named.recursing";
+	allow-query     { 192.168.7.0/24; };
+
+	recursion yes;
+
+	#forwarders { 192.168.7.2; 192.168.7.4; };
+
+	dnssec-enable no;
+	dnssec-validation no;
+
+	managed-keys-directory "/var/named/dynamic";
+
+	pid-file "/run/named/named.pid";
+	session-keyfile "/run/named/session.key";
+
+	include "/etc/crypto-policies/back-ends/bind.config";
+};
+
+logging {
+        channel default_debug {
+                file "data/named.run";
+                severity dynamic;
+        };
+};
+
+#include "/etc/named.rfc1912.zones";
+#include "/etc/named.root.key";
+
+Zone config
+AUTHENTICATION PROFILE
+active profile: Profile ID: sssd Enabled features: None
+
+AUTHENTICATION ISSUES
+Issues identified by validators: 0
+
+Messages generated during configuration merging: 0
+
+Used configuration snippet files: 0
+
+AUTHENTICATION SETTINGS
+[sssd]
+services = nss, pam
+config_file_version = 2
+domains = default
+
+[sudo]
+
+[nss]
+homedir_substring = /home
+
+[pam]
+offline_credentials_expiration = 60
+
+[domain/default]
+ldap_id_use_start_tls = True
+cache_credentials = True
+ldap_search_base = dc=fdauti,dc=ops
+id_provider = ldap
+auth_provider = ldap
+chpass_provider = ldap
+access_provider = ldap
+ldap_uri = ldaps://192.168.7.4
+ldap_chpass_uri = ldaps://192.168.7.4
+ldap_tls_reqcert = allow
+ldap_tls_cacert = /etc/openldap/certs/vm1.lab.fdauti.ops.crt
+ldap_tls_cacertdir = /etc/openldap/certs
+ldap_search_timeout = 50
+ldap_network_timeout = 60
+ldap_access_order = filter
+ldap_access_filter = (objectClass=posixAccount)
+
+nfs-server:active
+nfs-server:enabled
+
+EXPORTS - FILE
+/nethome 192.168.7.1(rw,root_squash)
+/nethome 192.168.7.2(rw,root_squash)
+/nethome 192.168.7.3(rw,root_squash)
+/nethome 192.168.7.4(rw,no_root_squash)
+EXPORTS - ACTIVE
+/nethome      	192.168.7.1
+/nethome      	192.168.7.2
+/nethome      	192.168.7.3
+/nethome      	192.168.7.4
+

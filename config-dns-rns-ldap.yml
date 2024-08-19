@@ -1,0 +1,82 @@
+---
+- name: config root name server
+  hosts: rns-ldap.fdauti.ops
+  become: yes
+
+  tasks:
+
+    - name: bind package is present
+      yum:
+        name: "{{item}}"
+        state: present
+      loop: ["bind", "bind-utils","wget"]
+    
+    - name: configure named.conf
+      template:
+        src: rns-ldap/named.conf
+        dest: /etc/
+        owner: named
+        group: named
+        mode: '0644'
+    
+    - name: configure root zone
+      template:
+        src: rns-ldap/virtual_lab_root.zone
+        dest: /var/named/
+        owner: named
+        group: named
+        mode: '0644'
+
+    - name: confirm named dir. and files ownership
+      file:
+        path: /var/named
+        state: directory
+        owner: named
+        group: named
+        recurse: yes
+
+    - name: restart/enable named server 
+      service:
+        name: named
+        state: restarted
+        enabled: yes
+    
+    - name: config. firewalld zone for ens224
+      firewalld:
+        zone: internal
+        interface: ens224
+        state: enabled
+        permanent: yes
+        immediate: yes
+
+    - name: config firewalld for dns access
+      firewalld:
+        zone: "{{item}}"
+        service: dns
+        state: enabled
+        permanent: yes
+        immediate: yes
+      loop: ["internal","public"]
+      
+    # - name: config. reslov.conf for manual update
+    #   template:
+    #     src: 90-dns-none.conf
+    #     dest: /etc/NetworkManager/conf.d/
+    #     owner: root
+    #     group: root
+    #     mode: '0644'
+
+    # - name: reload NetManager
+    #   command: systemctl reload NetworkManager
+
+    # - name: add the new nameserver
+    #   ansible.builtin.lineinfile:
+    #     path: /etc/resolv.conf
+    #     line: nameserver 192.168.7.3
+    #     insertbefore: BOF
+
+#commands for testing and excecution
+# ansible-playbook --syntax-check config-dns-rns-ldap.yml
+# ansible-playbook --list-tasks config-dns-rns-ldap.yml  
+# ansible-playbook --check config-dns-rns-ldap.yml 
+# ansible-playbook config-dns-rns-ldap.yml 

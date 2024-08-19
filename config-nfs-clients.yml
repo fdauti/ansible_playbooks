@@ -1,0 +1,47 @@
+---
+- name: config nfs server on co-nfs
+  hosts: pri-dns.fdauti.ops
+  become: yes
+
+  tasks:
+
+    - name: nfs-utils package is present
+      yum:
+        name: nfs-utils
+        state: present
+    
+    - name: nfs server installed and running
+      service:
+        name: nfs-server
+        state: restarted
+        enabled: yes
+    
+    - name: create home dir.
+      file:
+        path: /homedir
+        state: directory
+        owner: root
+        group: root
+        mode: '777'
+    
+    - name: make nfs fs available 
+      shell: "{{ item }}"
+      with_items: 
+      - modprobe nfs
+      - mount 192.168.7.3:/nethome /homedir
+      - su -c "echo '192.168.7.3:/nethome /homedir nfs4 defaults 0 0' >> /etc/fstab"
+      - setsebool -P use_nfs_home_dirs 1
+
+    - name: config. firewalld for ens224
+      firewalld:
+        zone: internal
+        interface: ens224
+        state: enabled
+        permanent: yes
+        immediate: yes
+        
+#commands for testing and excecution
+# ansible-playbook --syntax-check config-nfs-clients.yml
+# ansible-playbook --list-tasks config-nfs-clients.yml  
+# ansible-playbook --check config-nfs-clients.yml 
+# ansible-playbook config-nfs-clients.yml 

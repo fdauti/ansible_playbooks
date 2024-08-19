@@ -1,0 +1,13 @@
+$TTL    3D
+@       IN      SOA     pri-dns.fdauti.ops.      fdauti.myseneca.ca.(
+                202106201       ; Serial
+                8H      ; Refresh
+                2H      ; Retry
+                1W      ; Expire
+                1D      ; Negative Cache TTL
+);
+@       IN      NS      pri-dns.fdauti.ops.
+1       IN	    PTR	    router.fdauti.ops.
+2	    IN	    PTR	    pri-dns.fdauti.ops.
+3	    IN	    PTR	    co-nfs.fdauti.ops.
+4	    IN	    PTR	    rns-ldap.fdauti.ops.

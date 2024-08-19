@@ -1,0 +1,83 @@
+---
+- name: config primary dns server
+  hosts: pri-dns.fdauti.ops
+  become: yes
+
+  tasks:
+
+    - name: bind package is present
+      yum:
+        name: "{{item}}"
+        state: present
+      loop: ["bind", "bind-utils","wget"]
+    
+    - name: configure named.conf
+      template:
+        src: pri-dns/named.conf
+        dest: /etc/
+        owner: named
+        group: named
+        mode: '0644'
+    
+    - name: configure dns zones
+      template:
+        src: "{{item}}"
+        dest: /var/named/
+        owner: named
+        group: named
+        mode: '0644'
+      loop: ["my-zone.txt","rev-zone.txt"]
+
+    - name: confirm named dir. and files ownership
+      file:
+        path: /var/named
+        state: directory
+        owner: named
+        group: named
+        recurse: yes
+
+    - name: restart/enable named server 
+      service:
+        name: named
+        state: restarted
+        enabled: yes
+    
+    - name: config. firewalld zone for ens224
+      firewalld:
+        zone: internal
+        interface: ens224
+        state: enabled
+        permanent: yes
+        immediate: yes
+
+    - name: config firewalld for dns access
+      firewalld:
+        zone: "{{item}}"
+        service: dns
+        state: enabled
+        permanent: yes
+        immediate: yes
+      loop: ["internal","public"]
+
+    # - name: config. reslov.conf for manual update
+    #   template:
+    #     src: 90-dns-none.conf
+    #     dest: /etc/NetworkManager/conf.d/
+    #     owner: root
+    #     group: root
+    #     mode: '0644'
+
+    # - name: reload NetManager
+    #   command: systemctl reload NetworkManager
+
+    # - name: add the new nameserver
+    #   ansible.builtin.lineinfile:
+    #     path: /etc/resolv.conf
+    #     line: nameserver 192.168.7.3
+    #     insertbefore: BOF
+
+#commands for testing and excecution
+# ansible-playbook --syntax-check config-pri-dns.yml
+# ansible-playbook --list-tasks config-pri-dns.yml  
+# ansible-playbook --check config-pri-dns.yml 
+# ansible-playbook config-pri-dns.yml 

@@ -1,0 +1,38 @@
+---
+- name: config dns clients
+  hosts: dns_clients
+  become: yes
+
+  tasks:
+
+    - name: configure reslov.conf for manual update
+      template:
+        src: ../lab4/90-dns-none.conf
+        dest: /etc/NetworkManager/conf.d/
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: reload NetManager
+      command: 
+        cmd: systemctl reload NetworkManager
+
+    - name: Add the new nameserver to clients
+      ansible.builtin.lineinfile:
+        path: /etc/resolv.conf
+        line: nameserver 192.168.7.2
+        insertbefore: BOF
+
+    - name: config. firewalld for ens224
+      firewalld:
+        zone: internal
+        interface: ens224
+        state: enabled
+        permanent: yes
+        immediate: yes
+        
+#commands for testing and excecution
+# ansible-playbook --syntax-check config-dns-clients.yml
+# ansible-playbook --list-tasks config-dns-clients.yml  
+# ansible-playbook --check config-dns-clients.yml 
+# ansible-playbook config-dns-clients.yml

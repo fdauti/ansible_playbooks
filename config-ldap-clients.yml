@@ -1,0 +1,65 @@
+- name: config ldap server on co-ldap
+  hosts: pri-dns.fdauti.ops
+  become: yes
+
+  tasks:
+    
+    - name: install yum-utils package 
+      yum:
+        name: yum-utils
+        state: present
+
+    - name: add openldap repo
+      command: 
+        cmd: /usr/bin/yum-config-manager --add-repo=https://repo.symas.com/configs/SOFL/rhel8/sofl.repo
+        creates: /etc/yum.repos.d/sofl.repo
+
+    - name: update/install ldap packages 
+      yum:
+        name: "{{item}}"
+        state: latest
+        disable_gpg_check: yes
+      loop: ["symas-openldap-clients","sssd","sssd-ldap","sssd-tools","openssl-perl"]
+    
+    - name: install ldap server cert into the clients
+      shell:
+        cmd: openssl s_client -connect 192.168.7.4:636 -showcerts < /dev/null | openssl x509 -text > /etc/openldap/certs/vm1.lab.fdauti.ops.crt
+    
+    - name: copy/update sssd.conf to clients
+      copy:
+        src: ../lab3/client/sssd.conf
+        dest: /etc/sssd/sssd.conf
+        owner: root
+        group: root
+        mode: '0600'
+    
+    - name: apply new configuration to sssd
+      command: authselect select sssd --force
+
+    - name: sssd service enable and restart
+      service:
+        name: sssd
+        state: restarted
+        enabled: yes
+
+    - name: enable ldapsearch commands on client
+      copy:
+        src: ../lab3/client/ldap.conf
+        dest: /etc/openldap/ldap.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: config. firewalld for ens224
+      firewalld:
+        zone: internal
+        interface: ens224
+        state: enabled
+        permanent: yes
+        immediate: yes   
+        
+#commands for testing and excecution
+# ansible-playbook --syntax-check config-ldap-clients.yml
+# ansible-playbook --list-tasks config-ldap-clients.yml  
+# ansible-playbook --check config-ldap-clients.yml 
+# ansible-playbook config-ldap-clients.yml

@@ -1,0 +1,164 @@
+---
+- name: config ldap server on rns-ldap
+  hosts: rns-ldap.fdauti.ops
+  become: yes
+
+  tasks:
+
+    - name: install yum-utils package 
+      yum:
+        name: yum-utils
+        state: present
+
+    - name: add openldap repo
+      command: 
+        cmd: /usr/bin/yum-config-manager --add-repo=https://repo.symas.com/configs/SOFL/rhel8/sofl.repo
+        creates: /etc/yum.repos.d/sofl.repo
+
+    - name: install ldap packages 
+      yum:
+        name: "{{item}}"
+        state: present
+        disable_gpg_check: yes
+      loop: ["openldap","symas-openldap-clients","symas-openldap-servers","perl","openssl"]
+
+    - name: create migrationtools directory
+      file:
+        path: /usr/share/migrationtools
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+    
+    - name: copy updated migrationtools files to their directory
+      copy:
+        src: ../lab3/migrationtools/
+        dest: /usr/share/migrationtools/
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: confirm ldap ownership for ldap directories
+      file:
+        path: "{{item}}"
+        state: directory
+        owner: ldap
+        group: ldap
+      loop: ["/var/lib/ldap","/etc/openldap/slapd.d/cn=config/cn=schema"]
+
+    - name: restart/enable ldap server 
+      service:
+        name: slapd
+        state: restarted
+        enabled: yes
+  
+    - name: add schemas to ldap
+      command: "{{ item }}"
+      args:
+        creates: /etc/openldap/slapd.d/cn=config/cn=schema/cn={1}cosine.ldif
+        creates: /etc/openldap/slapd.d/cn=config/cn=schema/cn={2}nis.ldif
+        creates: /etc/openldap/slapd.d/cn=config/cn=schema/cn={3}inetorgperson.ldif
+      with_items:
+      - ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
+      - ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif
+      - ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
+
+    - name: copy ldif files to server
+      copy:
+        src: "{{ item }}"
+        dest: /home/student/
+        owner: student
+        group: users
+        mode: '0644'
+      with_fileglob: "../lab3/server/*.ldif"
+
+    # - name: create network user for ldap testing
+    #   user:
+    #     name: "{{ item.name }}"
+    #     password: "{{ item.password }}"
+    #     comment: "ldap user"
+    #     home: /homedir
+    #     group: seneca
+    #   with_items: 
+    #     - {name: "netuser8", password: "netuser8"}
+    
+    - name: add a1_netuser for testing 
+      shell: "{{ item }}"
+      #ignore_errors: yes
+        # will fail execution if the change was previously done
+        # ldap_add: Already exists (68) ... error
+      # register: command_result
+      # failed_when: "'FAILED' in command_result.stderr"
+      with_items:
+      - useradd -b /homedir -g seneca -p $(openssl passwd -1 a1_netuser) a1_netuser
+      - grep -w a1_netuser /etc/passwd > a1_netuser.entry
+      - /usr/share/migrationtools/migrate_passwd.pl a1_netuser.entry  a1_netuser.entry.ldif
+      - ldapadd -x -D "cn=Manager,dc=fdauti,dc=ops" -w fdauti -f a1_netuser.entry.ldif
+
+    - name: confirm certs direictory ldap permissions and mode
+      file:
+        path: /etc/openldap/certs
+        state: directory
+        owner: ldap
+        group: ldap
+        mode: '0700'
+
+    - name: copy certification files to server with ldap permissions
+      copy:
+        src: ../lab3/cert/
+        dest: /etc/openldap/certs/
+        owner: ldap
+        group: ldap
+        mode: '0600'
+
+    - name: copy/update ldap.conf with cert info
+      copy:
+        src: ../lab3/server/ldap.conf
+        dest: /etc/openldap/ldap.conf
+        owner: root
+        group: root
+        mode: '0644'
+        
+    - name: add ldif files content to ldap
+      command: "{{ item }}"
+      #ignore_errors: yes
+        # will fail execution if the change was previously done
+        # ldap_add: Already exists (68) ... error
+      register: command_result
+      failed_when: "'FAILED' in command_result.stderr"
+      with_items:
+      - ldapmodify -Y EXTERNAL -H ldapi:/// -f mdb-conf.ldif
+      - ldapadd -x -D "cn=Manager,dc=fdauti,dc=ops" -w fdauti -f ../lab3/base.ldif
+      - ldapadd -x -D "cn=Manager,dc=fdauti,dc=ops" -w fdauti -f ../lab3/people.ldif
+      - ldapadd -x -D "cn=Manager,dc=fdauti,dc=ops" -w fdauti -f ../lab3/ldapusers.ldif
+      - ldapadd -x -D "cn=Manager,dc=fdauti,dc=ops" -w fdauti -f ../lab3/group.ldif
+      - ldapadd -x -D "cn=Manager,dc=fdauti,dc=ops" -w fdauti -f ../lab3/ldapgroups.ldif
+      - ldapadd -x -D "cn=Manager,dc=fdauti,dc=ops" -w fdauti -f ../lab3/ldapusers_invstg4.ldif
+      - ldapadd -x -D "cn=Manager,dc=fdauti,dc=ops" -w fdauti -f ../lab3/ldapgroups_invstg4.ldif
+      - ldapadd -x -D "cn=Manager,dc=fdauti,dc=ops" -w fdauti -f ../lab3/ldapgroups_invstg4.ldif
+      - ldapadd -x -D "cn=Manager,dc=fdauti,dc=ops" -w fdauti -f netuser8.ldif
+      - ldapmodify -Y EXTERNAL -H ldapi:/// -f cert.ldif
+    
+    - name: config. firewalld for ens224
+      firewalld:
+        zone: internal
+        interface: ens224
+        state: enabled
+        permanent: yes
+        immediate: yes
+
+    - name: config firewalld for ldap access
+      firewalld:
+        zone: internal
+        service: "{{ item }}"
+        state: enabled
+        permanent: yes
+        immediate: yes
+      loop: ["ldap", "ldaps"]
+
+
+#commands for testing and excecution
+# ansible-playbook --syntax-check config-ldap.yml
+# ansible-playbook --list-tasks config-ldap.yml  
+# ansible-playbook --check config-ldap.yml 
+# ansible-playbook config-ldap.yml 

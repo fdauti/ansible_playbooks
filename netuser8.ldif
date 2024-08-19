@@ -1,0 +1,21 @@
+dn: uid=netuser8,ou=People,dc=fdauti,dc=ops
+uid: netuser8
+cn: netuser8
+sn: netuser8
+mail: netuser8@fdauti.ops
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+objectClass: shadowAccount
+userPassword: {crypt}$6$s27G6un.u.ZruvF5$3LcMQjBjbkbvM7gsjNQqp2IugUmKuODLD5XHHGOLoU7HfI272wqRwehpICGyo.NR4LKobyWOr6psqlvvT.BUg0
+shadowLastChange: 18800
+shadowMin: 0
+shadowMax: 99999
+shadowWarning: 7
+loginShell: /bin/bash
+uidNumber: 5358
+gidNumber: 5358
+homeDirectory: /homedir/netuser8
+

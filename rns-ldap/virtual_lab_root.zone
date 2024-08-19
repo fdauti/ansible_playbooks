@@ -1,0 +1,35 @@
+$TTL 3600
+@ IN SOA rns-ldap.fdauti.ops. fdauti.mysenca.ca. (2117322 1h 15m 30d 1h)
+@ IN NS  rns-ldap.fdauti.ops.
+rns-ldap.fdauti.ops.    IN    A     192.168.7.4
+
+rchan.ops. 	IN 	NS 	pri-dns.rchan.ops.
+pri-dns.rchan.ops. 	IN 	A 	172.20.0.1
+ 
+myuakash.ops. 	IN 	NS 	pri-dns.myuakash.ops.
+pri-dns.myuakash.ops. 	IN 	A 	192.168.1.2
+ 
+lkdnguyen.ops. 	IN 	NS 	pri-dns.lkdnguyen.ops.
+pri-dns.lkdnguyen.ops. 	IN 	A 	192.168.22.2
+ 
+spatel468.ops. 	IN 	NS 	pri-dns.spatel468.ops.
+pri-dns.spatel468.ops. 	IN 	A 	192.168.23.2
+ 
+krrafi.ops. 	IN 	NS 	pri-dns.krrafi.ops.
+pri-dns.krrafi.ops. 	IN 	A 	192.168.24.2
+ 
+raromero-burneo.ops. 	IN 	NS 	pri-dns.raromero-burneo.ops.
+pri-dns.raromero-burneo.ops. 	IN 	A 	192.168.25.2
+ 
+wsu15.ops. 	IN 	NS 	pri-dns.wsu15.ops.
+pri-dns.wsu15.ops. 	IN 	A 	192.168.26.2
+ 
+tjtuomisto.ops. 	IN 	NS 	pri-dns.tjtuomisto.ops.
+pri-dns.tjtuomisto.ops. 	IN 	A 	192.168.27.2
+ 
+styler.ops. 	IN 	NS 	pri-dns.styler.ops.
+pri-dns.styler.ops. 	IN 	A 	192.168.28.2
+ 
+pyao7.ops. 	IN 	NS 	pri-dns.pyao7.ops.
+pri-dns.pyao7.ops. 	IN 	A 	192.168.29.2
+ 

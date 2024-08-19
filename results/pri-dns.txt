@@ -1,0 +1,299 @@
+Tue Jun 22 23:08:02 EDT 2021
+
+hostname:pri-dns.fdauti.ops
+
+SELinux status:Enforcing
+
+release:4.18.0-305.3.1.el8.x86_64
+
+UUID:340c51dc-89fd-42e3-9a74-da365fa7f126 acf5ce23-02 acf5ce23-01 913282fd-33f0-4e21-83cc-ff7e97319e38
+
+firewalld:active
+firewalld:enabled
+named:active
+named:enabled
+
+internal (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: ens224
+  sources: 
+  services: cockpit dhcpv6-client dns mdns samba-client ssh
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: ens192
+  sources: 
+  services: cockpit dhcpv6-client ssh
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+
+
+
+Addresses
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: ens192: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:50:56:00:01:fe brd ff:ff:ff:ff:ff:ff
+    inet 172.20.7.2/16 brd 172.20.255.255 scope global dynamic noprefixroute ens192
+       valid_lft 76734sec preferred_lft 76734sec
+    inet6 fe80::250:56ff:fe00:1fe/64 scope link 
+       valid_lft forever preferred_lft forever
+3: ens224: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:0c:29:a9:3d:c6 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.7.2/24 brd 192.168.7.255 scope global noprefixroute ens224
+       valid_lft forever preferred_lft forever
+    inet6 fe80::20c:29ff:fea9:3dc6/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Named Config
+//
+// named.conf
+//
+// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
+// server as a caching only nameserver (as a localhost DNS resolver only).
+//
+// See /usr/share/doc/bind*/sample/ for example named configuration files.
+//
+
+options {
+	listen-on port 53 { 127.0.0.1; 192.168.7.2; 172.20.7.2; };
+	directory 	"/var/named";
+	dump-file 	"/var/named/data/cache_dump.db";
+	statistics-file "/var/named/data/named_stats.txt";
+	memstatistics-file "/var/named/data/named_mem_stats.txt";
+	secroots-file	"/var/named/data/named.secroots";
+	recursing-file	"/var/named/data/named.recursing";
+	allow-query     { any; };
+
+	recursion no;
+
+	dnssec-enable no;
+	dnssec-validation no;
+
+	managed-keys-directory "/var/named/dynamic";
+
+	pid-file "/run/named/named.pid";
+	session-keyfile "/run/named/session.key";
+
+	include "/etc/crypto-policies/back-ends/bind.config";
+};
+
+logging {
+        channel default_debug {
+                file "data/named.run";
+                severity dynamic;
+        };
+};
+
+zone "." IN {
+	type hint;
+	file "named.ca";
+};
+
+zone "fdauti.ops" IN {
+	type master;
+	file "my-zone.txt";
+	allow-update { localhost; };
+};
+
+zone "7.168.192.in-addr.arpa." IN {
+	type master;
+	file "rev-zone.txt";
+	allow-update { localhost; };
+};
+
+#include "/etc/named.rfc1912.zones";
+#include "/etc/named.root.key";
+
+Zone config
+/var/named/my-zone.txt
+$TTL    3D
+@       IN      SOA     pri-dns.fdauti.ops.      fdauti.myseneca.ca.(
+                202106201       ; Serial
+                8H      ; Refresh
+                2H      ; Retry
+                1W      ; Expire
+                1D      ; Negative Cache TTL
+);
+@       	IN      NS      pri-dns.fdauti.ops.
+router		IN		A		192.168.7.1
+pri-dns		IN		A		192.168.7.2
+co-nfs		IN		A		192.168.7.3
+rns-ldap	IN		A		192.168.7.4
+
+/var/named/rev-zone.txt
+$TTL    3D
+@       IN      SOA     pri-dns.fdauti.ops.      fdauti.myseneca.ca.(
+                202106201       ; Serial
+                8H      ; Refresh
+                2H      ; Retry
+                1W      ; Expire
+                1D      ; Negative Cache TTL
+);
+@       IN      NS      pri-dns.fdauti.ops.
+1       IN	    PTR	    router.fdauti.ops.
+2	    IN	    PTR	    pri-dns.fdauti.ops.
+3	    IN	    PTR	    co-nfs.fdauti.ops.
+4	    IN	    PTR	    rns-ldap.fdauti.ops.
+
+DNS config
+drwxrwx--T. 5 named named system_u:object_r:named_zone_t:s0 166 Jun 22 21:59 /var/named
+
+total 24
+drwxrwx---. 2 named named system_u:object_r:named_cache_t:s0   23 Jun 21 03:46 data
+drwxrwx---. 2 named named system_u:object_r:named_cache_t:s0    6 May 27 16:49 dynamic
+-rw-r--r--. 1 named named system_u:object_r:named_zone_t:s0   424 Jun 22 19:58 my-zone.txt
+-rw-r-----. 1 named named system_u:object_r:named_conf_t:s0  2253 May 27 16:49 named.ca
+-rw-r-----. 1 named named system_u:object_r:named_zone_t:s0   152 May 27 16:49 named.empty
+-rw-r-----. 1 named named system_u:object_r:named_zone_t:s0   152 May 27 16:49 named.localhost
+-rw-r-----. 1 named named system_u:object_r:named_zone_t:s0   168 May 27 16:49 named.loopback
+-rw-r--r--. 1 named named system_u:object_r:named_zone_t:s0   478 Jun 22 19:58 rev-zone.txt
+drwxrwx---. 2 named named system_u:object_r:named_cache_t:s0    6 May 27 16:49 slaves
+
+SEBool
+named_write_master_zones --> on
+
+INCLUDED FILES
+/etc/crypto-policies/back-ends/bind.config
+disable-algorithms "." {
+RSAMD5;
+DSA;
+};
+disable-ds-digests "." {
+GOST;
+};
+
+/etc/named.rfc1912.zones
+// named.rfc1912.zones:
+//
+// Provided by Red Hat caching-nameserver package 
+//
+// ISC BIND named zone configuration for zones recommended by
+// RFC 1912 section 4.1 : localhost TLDs and address zones
+// and https://tools.ietf.org/html/rfc6303
+// (c)2007 R W Franks
+// 
+// See /usr/share/doc/bind*/sample/ for example named configuration files.
+//
+// Note: empty-zones-enable yes; option is default.
+// If private ranges should be forwarded, add 
+// disable-empty-zone "."; into options
+// 
+
+zone "localhost.localdomain" IN {
+	type master;
+	file "named.localhost";
+	allow-update { none; };
+};
+
+zone "localhost" IN {
+	type master;
+	file "named.localhost";
+	allow-update { none; };
+};
+
+zone "1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa" IN {
+	type master;
+	file "named.loopback";
+	allow-update { none; };
+};
+
+zone "1.0.0.127.in-addr.arpa" IN {
+	type master;
+	file "named.loopback";
+	allow-update { none; };
+};
+
+zone "0.in-addr.arpa" IN {
+	type master;
+	file "named.empty";
+	allow-update { none; };
+};
+
+/etc/named.root.key
+managed-keys {
+        # ROOT KEYS: See https://data.iana.org/root-anchors/root-anchors.xml
+        # for current trust anchor information.
+        #
+        # This key (20326) was published in the root zone in 2017.
+        # Servers which were already using the old key (19036) should
+        # roll seamlessly to this new one via RFC 5011 rollover. Servers
+        # being set up for the first time can use the contents of this
+        # file as initializing keys; thereafter, the keys in the
+        # managed key database will be trusted and maintained
+        # automatically.
+        . initial-key 257 3 8 "AwEAAaz/tAm8yTn4Mfeh5eyI96WSVexTBAvkMgJzkKTOiW1vkIbzxeF3
+                +/4RgWOq7HrxRixHlFlExOLAJr5emLvN7SWXgnLh4+B5xQlNVz8Og8kv
+                ArMtNROxVQuCaSnIDdD5LKyWbRd2n9WGe2R8PzgCmr3EgVLrjyBxWezF
+                0jLHwVN8efS3rCj/EWgvIWgb9tarpVUDK/b58Da+sqqls3eNbuv7pr+e
+                oZG+SrDK6nWeL3c6H5Apxz7LjVc1uTIdsIXxuOLYA4/ilBmSVIzuDWfd
+                RUfhHdY6+cn8HFRm+2hM8AnXGXws9555KrUB5qihylGa8subX2Nn6UwN
+                R1AkUTV74bU=";
+};
+
+
+AUTHENTICATION PROFILE
+active profile: Profile ID: sssd Enabled features: None
+
+AUTHENTICATION ISSUES
+Issues identified by validators: 0
+
+Messages generated during configuration merging: 0
+
+Used configuration snippet files: 0
+
+AUTHENTICATION SETTINGS
+[sssd]
+services = nss, pam
+config_file_version = 2
+domains = default
+
+[sudo]
+
+[nss]
+homedir_substring = /home
+
+[pam]
+offline_credentials_expiration = 60
+
+[domain/default]
+ldap_id_use_start_tls = True
+cache_credentials = True
+ldap_search_base = dc=fdauti,dc=ops
+id_provider = ldap
+auth_provider = ldap
+chpass_provider = ldap
+access_provider = ldap
+ldap_uri = ldaps://192.168.7.4
+ldap_chpass_uri = ldaps://192.168.7.4
+ldap_tls_reqcert = allow
+ldap_tls_cacert = /etc/openldap/certs/vm1.lab.fdauti.ops.crt
+ldap_tls_cacertdir = /etc/openldap/certs
+ldap_search_timeout = 50
+ldap_network_timeout = 60
+ldap_access_order = filter
+ldap_access_filter = (objectClass=posixAccount)
+
+NFS Mounts
+nfsd on /proc/fs/nfsd type nfsd (rw,relatime)
+sunrpc on /var/lib/nfs/rpc_pipefs type rpc_pipefs (rw,relatime)
+192.168.7.3:/nethome on /homedir type nfs4 (rw,relatime,vers=4.2,rsize=262144,wsize=262144,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=192.168.7.2,local_lock=none,addr=192.168.7.3)
+

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<title>Domainreg - CDOT Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Domainreg","wgTitle":"Domainreg","wgCurRevisionId":155080,"wgRevisionId":155080,"wgArticleId":14066,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["OPS535","Rchan"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Domainreg","wgRelevantArticleId":14066,"wgRequestId":"YNJdbKoD8nU@IrC-1E9ESgAAAAk","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgPreferredVariant":"en","wgMFExpandAllSectionsUserOption":false,"wgMFDisplayWikibaseDescriptions":{"search":false,"nearby":false,"watchlist":false,"tagline":false}});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1criv6w",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","jquery.tablesorter","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/w/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/w/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<link rel="stylesheet" href="/w/load.php?debug=false&amp;lang=en&amp;modules=site.styles&amp;only=styles&amp;skin=vector"/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="CDOT Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.cdot.senecacollege.ca/w/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="CDOT Wiki Atom feed" href="/w/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Domainreg rootpage-Domainreg skin-vector action-view">		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+						<div class="mw-indicators mw-body-content">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="en">Domainreg</h1>
+									<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub" class="noprint">From CDOT Wiki</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>Script for generating the root zone file from this wiki page: <a href="/wiki/Get-root-zone" title="Get-root-zone">Get-root-zone</a>
+</p><p>Remember Add your nameserver's hostname as well as the IP (ex: ns1.mydomain.com or nameserver.mydomain.com)
+</p>
+<table class="wikitable sortable" border="2" width="80%">
+
+<tr>
+<th>Name
+</th>
+<th> Domain Name
+</th>
+<th> Network
+</th>
+<th> Name Server IP
+</th>
+<th> Name Server Host
+</th>
+<th> Root Nameserver
+</th></tr>
+<tr>
+<td><a href="/wiki/User:Rchan" title="User:Rchan">Chan, Raymond</a>
+</td>
+<td>rchan.ops
+</td>
+<td>172.20.0.0
+</td>
+<td>172.20.0.1
+</td>
+<td>pri-dns.rchan.ops
+</td>
+<td>
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Makash&amp;action=edit&amp;redlink=1" class="new" title="User:Makash (page does not exist)">Akash,Md</a>
+</td>
+<td>myuakash.ops
+</td>
+<td>192.168.1.0
+</td>
+<td>192.168.1.2
+</td>
+<td>pri-dns.myuakash.ops
+</td>
+<td>rns-ldap.myuakash.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Bakbar&amp;action=edit&amp;redlink=1" class="new" title="User:Bakbar (page does not exist)">Akbar,Bilal</a>
+</td>
+<td>bakbar1.ops
+</td>
+<td>192.168.2.0
+</td>
+<td>192.168.2.2
+</td>
+<td>pri-dns.bakbar1.ops
+</td>
+<td>rns-ldap.bakbar1.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Raxat&amp;action=edit&amp;redlink=1" class="new" title="User:Raxat (page does not exist)">Axat,Rashmikant</a>
+</td>
+<td>saxat-rashmikant.ops
+</td>
+<td>192.168.3.0
+</td>
+<td>192.168.3.2
+</td>
+<td>pri-dns.saxat-rashmikant.ops
+</td>
+<td>rns-ldap.saxat-rashmikant.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Nbehal&amp;action=edit&amp;redlink=1" class="new" title="User:Nbehal (page does not exist)">Behal,Nischay</a>
+</td>
+<td>nbehal3.ops
+</td>
+<td>192.168.4.0
+</td>
+<td>192.168.4.2
+</td>
+<td>pri-dns.nbehal3.ops
+</td>
+<td>rns-ldap.nbehal3.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Vbhatt&amp;action=edit&amp;redlink=1" class="new" title="User:Vbhatt (page does not exist)">Bhatt,Vansh</a>
+</td>
+<td>vmbhatt2.ops
+</td>
+<td>192.168.5.0
+</td>
+<td>192.168.5.2
+</td>
+<td>pri-dns.vmbhatt2.ops
+</td>
+<td>rns-ldap.vmbhatt2.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Rcapua&amp;action=edit&amp;redlink=1" class="new" title="User:Rcapua (page does not exist)">Capua,Russell</a>
+</td>
+<td>rcapua2.ops
+</td>
+<td>192.168.6.0
+</td>
+<td>192.168.6.2
+</td>
+<td>pri-dns.rcapua2.ops
+</td>
+<td>rns-ldap.rcapua2.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Fdauti&amp;action=edit&amp;redlink=1" class="new" title="User:Fdauti (page does not exist)">Dauti,Fatjon</a>
+</td>
+<td>fdauti.ops
+</td>
+<td>192.168.7.0
+</td>
+<td>192.168.7.2
+</td>
+<td>pri-dns.fdauti.ops
+</td>
+<td>rns-ldap.fdauti.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Rdu&amp;action=edit&amp;redlink=1" class="new" title="User:Rdu (page does not exist)">Du,Ray</a>
+</td>
+<td>rdu6.ops
+</td>
+<td>192.168.8.0
+</td>
+<td>192.168.8.2
+</td>
+<td>pri-dns.rdu6.ops
+</td>
+<td>rns-ldap.rdu6.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Kengineer&amp;action=edit&amp;redlink=1" class="new" title="User:Kengineer (page does not exist)">Engineer,Karn</a>
+</td>
+<td>knengineer.ops
+</td>
+<td>192.168.9.0
+</td>
+<td>192.168.9.2
+</td>
+<td>pri-dns.knengineer.ops
+</td>
+<td>rns-ldap.knengineer.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Fganiyu&amp;action=edit&amp;redlink=1" class="new" title="User:Fganiyu (page does not exist)">Ganiyu,Feyisetan</a>
+</td>
+<td>faganiyu.ops
+</td>
+<td>192.168.10.0
+</td>
+<td>192.168.10.2
+</td>
+<td>pri-dns.faganiyu.ops
+</td>
+<td>rns-ldap.faganiyu.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Ngeronimo&amp;action=edit&amp;redlink=1" class="new" title="User:Ngeronimo (page does not exist)">Geronimo,Niccolo</a>
+</td>
+<td>ngeronimo.ops
+</td>
+<td>192.168.11.0
+</td>
+<td>192.168.11.2
+</td>
+<td>pri-dns.ngeronimo.ops
+</td>
+<td>rns-ldap.ngeronimo.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Rguo&amp;action=edit&amp;redlink=1" class="new" title="User:Rguo (page does not exist)">Guo,Robert</a>
+</td>
+<td>rguo19.ops
+</td>
+<td>192.168.12.0
+</td>
+<td>192.168.12.2
+</td>
+<td>pri-dns.rguo19.ops
+</td>
+<td>rns-ldap.rguo19.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Pjean&amp;action=edit&amp;redlink=1" class="new" title="User:Pjean (page does not exist)">Jean,Perry</a>
+</td>
+<td>pjean.ops
+</td>
+<td>192.168.13.0
+</td>
+<td>192.168.13.2
+</td>
+<td>pri-dns.pjean.ops
+</td>
+<td>rns-ldap.pjean.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Sops535&amp;action=edit&amp;redlink=1" class="new" title="User:Sops535 (page does not exist)">Ops535,Stud14</a>
+</td>
+<td>stud14.ops
+</td>
+<td>192.168.14.0
+</td>
+<td>192.168.14.2
+</td>
+<td>pri-dns.stud14.ops
+</td>
+<td>rns-ldap.stud14.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Gkarapetyan&amp;action=edit&amp;redlink=1" class="new" title="User:Gkarapetyan (page does not exist)">Karapetyan,Gevorg</a>
+</td>
+<td>gkarapetyan2.ops
+</td>
+<td>192.168.15.0
+</td>
+<td>192.168.15.2
+</td>
+<td>pri-dns.gkarapetyan2.ops
+</td>
+<td>rns-ldap.gkarapetyan2.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Skhan&amp;action=edit&amp;redlink=1" class="new" title="User:Skhan (page does not exist)">Khan,Shayaan</a>
+</td>
+<td>skhan405.ops
+</td>
+<td>192.168.16.0
+</td>
+<td>192.168.16.2
+</td>
+<td>pri-dns.skhan405.ops
+</td>
+<td>rns-ldap.skhan405.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Jkim&amp;action=edit&amp;redlink=1" class="new" title="User:Jkim (page does not exist)">Kim,Joo</a>
+</td>
+<td>jykim32.ops
+</td>
+<td>192.168.17.0
+</td>
+<td>192.168.17.2
+</td>
+<td>pri-dns.jykim32.ops
+</td>
+<td>rns-ldap.jykim32.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Skoleini&amp;action=edit&amp;redlink=1" class="new" title="User:Skoleini (page does not exist)">Koleini,Sama</a>
+</td>
+<td>skoleini1.ops
+</td>
+<td>192.168.18.0
+</td>
+<td>192.168.18.2
+</td>
+<td>pri-dns.skoleini1.ops
+</td>
+<td>rns-ldap.skoleini1.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Mmoktader&amp;action=edit&amp;redlink=1" class="new" title="User:Mmoktader (page does not exist)">Moktader,Mohammad</a>
+</td>
+<td>mmoktader.ops
+</td>
+<td>192.168.19.0
+</td>
+<td>192.168.19.2
+</td>
+<td>pri-dns.mmoktader.ops
+</td>
+<td>rns-ldap.mmoktader.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Sops535&amp;action=edit&amp;redlink=1" class="new" title="User:Sops535 (page does not exist)">Ops535,Stud20</a>
+</td>
+<td>stud20.ops
+</td>
+<td>192.168.20.0
+</td>
+<td>192.168.20.2
+</td>
+<td>pri-dns.stud20.ops
+</td>
+<td>rns-ldap.stud20.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Dngan&amp;action=edit&amp;redlink=1" class="new" title="User:Dngan (page does not exist)">Ngan,Daniel</a>
+</td>
+<td>dngan.ops
+</td>
+<td>192.168.21.0
+</td>
+<td>192.168.21.2
+</td>
+<td>pri-dns.dngan.ops
+</td>
+<td>rns-ldap.dngan.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Lnguyen&amp;action=edit&amp;redlink=1" class="new" title="User:Lnguyen (page does not exist)">Nguyen,Le</a>
+</td>
+<td>lkdnguyen.ops
+</td>
+<td>192.168.22.0
+</td>
+<td>192.168.22.2
+</td>
+<td>pri-dns.lkdnguyen.ops
+</td>
+<td>rns-ldap.lkdnguyen.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Spatel&amp;action=edit&amp;redlink=1" class="new" title="User:Spatel (page does not exist)">Patel,Shyam</a>
+</td>
+<td>spatel468.ops
+</td>
+<td>192.168.23.0
+</td>
+<td>192.168.23.2
+</td>
+<td>pri-dns.spatel468.ops
+</td>
+<td>rns-ldap.spatel468.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Krafi&amp;action=edit&amp;redlink=1" class="new" title="User:Krafi (page does not exist)">Rafi,Kazi</a>
+</td>
+<td>krrafi.ops
+</td>
+<td>192.168.24.0
+</td>
+<td>192.168.24.2
+</td>
+<td>pri-dns.krrafi.ops
+</td>
+<td>rns-ldap.krrafi.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Bromero&amp;action=edit&amp;redlink=1" class="new" title="User:Bromero (page does not exist)">Romero,Burneo</a>
+</td>
+<td>raromero-burneo.ops
+</td>
+<td>192.168.25.0
+</td>
+<td>192.168.25.2
+</td>
+<td>pri-dns.raromero-burneo.ops
+</td>
+<td>rns-ldap.raromero-burneo.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Esu&amp;action=edit&amp;redlink=1" class="new" title="User:Esu (page does not exist)">Su,Eliza</a>
+</td>
+<td>wsu15.ops
+</td>
+<td>192.168.26.0
+</td>
+<td>192.168.26.2
+</td>
+<td>pri-dns.wsu15.ops
+</td>
+<td>rns-ldap.wsu15.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Ttuomisto&amp;action=edit&amp;redlink=1" class="new" title="User:Ttuomisto (page does not exist)">Tuomisto,Tim</a>
+</td>
+<td>tjtuomisto.ops
+</td>
+<td>192.168.27.0
+</td>
+<td>192.168.27.2
+</td>
+<td>pri-dns.tjtuomisto.ops
+</td>
+<td>rns-ldap.tjtuomisto.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Styler&amp;action=edit&amp;redlink=1" class="new" title="User:Styler (page does not exist)">Tyler,Sean</a>
+</td>
+<td>styler.ops
+</td>
+<td>192.168.28.0
+</td>
+<td>192.168.28.2
+</td>
+<td>pri-dns.styler.ops
+</td>
+<td>rns-ldap.styler.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Pyao&amp;action=edit&amp;redlink=1" class="new" title="User:Pyao (page does not exist)">Yao,Peiliang</a>
+</td>
+<td>pyao7.ops
+</td>
+<td>192.168.29.0
+</td>
+<td>192.168.29.2
+</td>
+<td>pri-dns.pyao7.ops
+</td>
+<td>rns-ldap.pyao7.ops
+</td></tr>
+<tr>
+<td><a href="/w/index.php?title=User:Jyin&amp;action=edit&amp;redlink=1" class="new" title="User:Jyin (page does not exist)">Yin,James</a>
+</td>
+<td>syin12.ops
+</td>
+<td>192.168.30.0
+</td>
+<td>192.168.30.2
+</td>
+<td>pri-dns.syin12.ops
+</td>
+<td>rns-ldap.syin12.ops
+</td>
+</tr>
+</table>
+
+<!-- 
+NewPP limit report
+Cached time: 20210622034238
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.027 seconds
+Real time usage: 0.031 seconds
+Preprocessor visited node count: 1/1000000
+Preprocessor generated node count: 4/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 1/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key cdotwiki_db-mw_:pcache:idhash:14066-0!canonical and timestamp 20210622034238 and revision id 155080
+ -->
+</div>					<div class="printfooter">
+						Retrieved from "<a dir="ltr" href="https://wiki.cdot.senecacollege.ca/w/index.php?title=Domainreg&amp;oldid=155080">https://wiki.cdot.senecacollege.ca/w/index.php?title=Domainreg&amp;oldid=155080</a>"					</div>
+				<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/wiki/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/wiki/Category:OPS535" title="Category:OPS535">OPS535</a></li><li><a href="/wiki/Category:Rchan" title="Category:Rchan">Rchan</a></li></ul></div></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/w/index.php?title=Special:UserLogin&amp;returnto=Domainreg" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li><li id="pt-createaccount"><a href="/wiki/Special:RequestAccount" title="You are encouraged to create an account and log in; however, it is not mandatory">Request account</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/wiki/Domainreg" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/w/index.php?title=Talk:Domainreg&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/wiki/Domainreg">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/w/index.php?title=Domainreg&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/w/index.php?title=Domainreg&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/w/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search CDOT Wiki" title="Search CDOT Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="/wiki/Main_Page"  title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+			<h3 id='p-navigation-label'>Navigation</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-CDOT"><a href="/wiki/CDOT">CDOT</a></li><li id="n-SICT-AR-Meeting-Area"><a href="/wiki/SICT_AR_Meeting_Area">SICT AR Meeting Area</a></li><li id="n-People"><a href="/wiki/People">People</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-get_involved_with_CDOT' aria-labelledby='p-get_involved_with_CDOT-label'>
+			<h3 id='p-get_involved_with_CDOT-label'>get involved with CDOT</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-as-a-Student"><a href="/wiki/Category:Ways_to_Get_Involved_with_CDOT_-_Students">as a Student</a></li><li id="n-as-an-Open-Source-Community-Member"><a href="/wiki/FSOSS">as an Open Source Community Member</a></li><li id="n-as-a-Company"><a href="/wiki/CDOT_Partnership_Opportunities">as a Company</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-courses' aria-labelledby='p-courses-label'>
+			<h3 id='p-courses-label'>courses</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-BTC640"><a href="/wiki/BTC640">BTC640</a></li><li id="n-BTH740"><a href="/wiki/BTH740">BTH740</a></li><li id="n-BTP300"><a href="/wiki/BTP300">BTP300</a></li><li id="n-CPO500"><a href="/wiki/CPO500">CPO500</a></li><li id="n-DPI908"><a href="/wiki/DPI908">DPI908</a></li><li id="n-DPS901"><a href="/wiki/DPS901">DPS901</a></li><li id="n-DPS905"><a href="/wiki/DPS905">DPS905</a></li><li id="n-DPS909"><a href="/wiki/DPS909">DPS909</a></li><li id="n-DPS911"><a href="/wiki/DPS911">DPS911</a></li><li id="n-DPS914"><a href="/wiki/DPS914">DPS914</a></li><li id="n-DPS915"><a href="/wiki/DPS915">DPS915</a></li><li id="n-DPS924"><a href="/wiki/DPS924">DPS924</a></li><li id="n-DPS931"><a href="/wiki/GAM531">DPS931</a></li><li id="n-EAC234"><a href="/wiki/EAC234">EAC234</a></li><li id="n-ECL500"><a href="/wiki/ECL500">ECL500</a></li><li id="n-GAM531"><a href="/wiki/GAM531">GAM531</a></li><li id="n-GAM666"><a href="/wiki/GAM666">GAM666</a></li><li id="n-GAM670"><a href="/wiki/GAM670">GAM670</a></li><li id="n-GPU610"><a href="/wiki/GPU610">GPU610</a></li><li id="n-LUX-Program"><a href="/wiki/LUX_Program">LUX Program</a></li><li id="n-MAP524"><a href="/wiki/MAP524">MAP524</a></li><li id="n-OOP344"><a href="/wiki/OOP344">OOP344</a></li><li id="n-OPS235"><a href="/wiki/OPS235">OPS235</a></li><li id="n-OPS245"><a href="/wiki/OPS245">OPS245</a></li><li id="n-OPS335"><a href="/wiki/OPS335">OPS335</a></li><li id="n-OPS435"><a href="/wiki/OPS435_Python">OPS435</a></li><li id="n-OPS535"><a href="/wiki/OPS535">OPS535</a></li><li id="n-OPS635"><a href="/wiki/OPS635">OPS635</a></li><li id="n-OSD600"><a href="/wiki/OSD600">OSD600</a></li><li id="n-OSD700"><a href="/wiki/OSD700">OSD700</a></li><li id="n-Real-World-Mozilla"><a href="/wiki/Real_World_Mozilla">Real World Mozilla</a></li><li id="n-SBR600"><a href="/wiki/SBR600">SBR600</a></li><li id="n-SEC520"><a href="/wiki/SEC520">SEC520</a></li><li id="n-SPO600"><a href="/wiki/SPO600">SPO600</a></li><li id="n-SRT210"><a href="/wiki/SRT210">SRT210</a></li><li id="n-ULI101"><a href="/wiki/ULI101">ULI101</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-course_projects' aria-labelledby='p-course_projects-label'>
+			<h3 id='p-course_projects-label'>course projects</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-Course-Project-List"><a href="/wiki/Project_List">Course Project List</a></li><li id="n-Potential-Course-Projects"><a href="/wiki/Potential_Projects">Potential Course Projects</a></li><li id="n-Contrib-Opportunities"><a href="/wiki/Contrib_Opportunities">Contrib Opportunities</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-links' aria-labelledby='p-links-label'>
+			<h3 id='p-links-label'>links</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-CDOT"><a href="http://cdot.senecacollege.ca/" rel="nofollow">CDOT</a></li><li id="n-Planet-CDOT"><a href="http://zenit.senecacollege.ca/~chris.tyler/planet" rel="nofollow">Planet CDOT</a></li><li id="n-FSOSS"><a href="http://fsoss.ca/" rel="nofollow">FSOSS</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+			<h3 id='p-tb-label'>Tools</h3>
+
+			<div class="body">
+									<ul>
+						<li id="t-whatlinkshere"><a href="/wiki/Special:WhatLinksHere/Domainreg" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="/wiki/Special:RecentChangesLinked/Domainreg" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li id="t-specialpages"><a href="/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li id="t-print"><a href="/w/index.php?title=Domainreg&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li id="t-permalink"><a href="/w/index.php?title=Domainreg&amp;oldid=155080" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="/w/index.php?title=Domainreg&amp;action=info" title="More information about this page">Page information</a></li>					</ul>
+							</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last edited on 11 June 2021, at 14:32.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="/wiki/CDOT_Wiki:Privacy_policy" title="CDOT Wiki:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="/wiki/CDOT_Wiki:About" title="CDOT Wiki:About">About CDOT Wiki</a></li>
+											<li id="footer-places-disclaimer"><a href="/wiki/CDOT_Wiki:General_disclaimer" title="CDOT Wiki:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-mobileview"><a href="https://wiki.cdot.senecacollege.ca/w/index.php?title=Domainreg&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-poweredbyico">
+							<a href="//www.mediawiki.org/"><img src="/w/resources/assets/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/w/resources/assets/poweredby_mediawiki_132x47.png 1.5x, /w/resources/assets/poweredby_mediawiki_176x62.png 2x" width="88" height="31"/></a>						</li>
+									</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.027","walltime":"0.031","ppvisitednodes":{"value":1,"limit":1000000},"ppgeneratednodes":{"value":4,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":1,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20210622034238","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":200});});</script>
+	</body>
+</html>

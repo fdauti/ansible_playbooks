@@ -1,0 +1,25 @@
+---
+- name: add network user on rns-ldap
+  hosts: rns-ldap.fdauti.ops
+  become: yes
+
+  tasks:
+
+    - name: add a1_netuser for testing 
+      shell: "{{ item }}"
+      #ignore_errors: yes
+        # will fail execution if the change was previously done
+        # ldap_add: Already exists (68) ... error
+      # register: command_result
+      # failed_when: "'FAILED' in command_result.stderr"
+      with_items:
+      - useradd -b /homedir -g seneca -p $(openssl passwd -1 a1_netuser) a1_netuser
+      - grep -w a1_netuser /etc/passwd > a1_netuser
+      - /usr/share/migrationtools/migrate_passwd.pl /home/student/a1_netuser /home/student/a1_netuser.ldif
+      - ldapadd -x -D "cn=Manager,dc=fdauti,dc=ops" -w fdauti -f /home/student/a1_netuser.ldif
+
+#commands for testing and excecution
+# ansible-playbook --syntax-check add_netuser.yml
+# ansible-playbook --list-tasks add_netuser.yml  
+# ansible-playbook --check add_netuser.yml 
+# ansible-playbook add_netuser.yml 

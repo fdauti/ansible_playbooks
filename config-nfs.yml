@@ -1,0 +1,56 @@
+---
+- name: config nfs server on co-nfs
+  hosts: co-nfs.fdauti.ops
+  become: yes
+
+  tasks:
+
+    - name: nfs-utils package is present
+      yum:
+        name: nfs-utils
+        state: present
+
+    - name: create nfs share directory with sticky bit and rwx
+      file:
+        path: /nethome
+        state: directory
+        owner: root
+        group: root
+        mode: '1777'
+    
+    - name: list of nfs share and options
+      copy:
+        src: exports
+        dest: /etc/exports
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: nfs server installed and running
+      service:
+        name: nfs-server
+        state: restarted
+        enabled: yes
+
+    - name: config firewalld for nfs 
+      firewalld:
+        zone: internal
+        service: nfs
+        state: enabled
+        permanent: yes
+        immediate: yes
+    
+    - name: config. firewalld for ens224
+      firewalld:
+        zone: internal
+        interface: ens224
+        state: enabled
+        permanent: yes
+        immediate: yes
+
+
+#commands for testing and excecution
+# ansible-playbook --syntax-check config-nfs.yml
+# ansible-playbook --list-tasks config-nfs.yml  
+# ansible-playbook --check config-nfs.yml 
+# ansible-playbook config-nfs.yml 
